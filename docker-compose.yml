@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   web:
     build: .
@@ -7,13 +8,14 @@ services:
     environment:
       - DB_USER=myuser
       - DB_PASSWORD=mypassword
-      - DB_HOST=localhost
+      - DB_HOST=mysql
       - DB_NAME=mydatabase
+    depends_on:
+      - mysql
 
   mysql:
-    image: mysql:8.0 # Specify the MySQL version (e.g., 8.0)
+    image: mysql:8.0
     container_name: mysql
-    network_mode: bridge
     restart: always
     ports:
       - "3306:3306"
@@ -21,9 +23,10 @@ services:
       - mysql_data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=mydatabase # Optional: create a default database
-      - MYSQL_USER=myuser # Add a new user
-      - MYSQL_PASSWORD=mypassword # Set password for the new user
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=mypassword
+
 volumes:
   mysql_data:
     name: mysql_data
