@@ -1,3 +1,6 @@
+
+FROM mysql:8.0
+COPY schema.sql /docker-entrypoint-initdb.d/
 # Use the official Python image.
 FROM python:3.10-slim
 
